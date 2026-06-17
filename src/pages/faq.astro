@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import FAQ from '../components/FAQ.astro';
+import CTABanner from '../components/CTABanner.astro';
+
+const bookingFAQ = [
+  { question: "How do I book a cleaning?", answer: "You can request a quote through our online form or call us at (415) 555-0100. We'll confirm availability and provide a final price within 1 hour during business hours." },
+  { question: "Can I schedule recurring cleanings?", answer: "Absolutely! We offer weekly, bi-weekly, and monthly recurring cleaning services. Recurring clients enjoy priority scheduling and a 10% discount." },
+  { question: "How far in advance do I need to book?", answer: "We recommend booking at least 24-48 hours in advance. However, we sometimes have same-day cancellations, so it's always worth checking for last-minute availability." }
+];
+
+const pricingFAQ = [
+  { question: "How much does house cleaning cost in San Francisco?", answer: "Pricing depends on the size of your home and the type of service. A standard 1-bedroom apartment cleaning typically starts at $120. Request a free quote for exact pricing." },
+  { question: "Are there any hidden fees?", answer: "No. The price we quote you is the price you pay. We don't charge extra for basic supplies, travel, or 'service fees' that some other companies hide in the fine print." },
+  { question: "Do you offer discounts?", answer: "Yes! We offer 15% off for first-time customers and a 10% discount for all recurring cleaning schedules." }
+];
+
+const cleanersFAQ = [
+  { question: "Are your cleaners background-checked?", answer: "Yes. Every member of our team undergoes a rigorous nationwide background check and identity verification process before joining Andreas Cleaning Co." },
+  { question: "Are your cleaners insured?", answer: "Yes. We are fully licensed, bonded, and insured in the state of California. This protects you, your home, and our team members during every visit." },
+  { question: "Will I get the same cleaner every time?", answer: "For recurring cleanings, we do our best to send the same team member. This allows them to become familiar with your home and your specific preferences." }
+];
+
+const safetyFAQ = [
+  { question: "What cleaning products do you use?", answer: "We use high-quality, eco-friendly, and non-toxic cleaning products. They are tough on dirt but safe for children, pets, and the environment." },
+  { question: "Do I need to provide any supplies?", answer: "No. Our team arrives fully equipped with all necessary supplies, including vacuums, mops, and microfibers. If you have a specific product you'd like us to use, just let us know." },
+  { question: "Are your products pet-safe?", answer: "Yes! We love pets and only use products that are safe for your furry family members." }
+];
+
+const cancellationFAQ = [
+  { question: "What is your cancellation policy?", answer: "We require 24-hour notice for all cancellations or rescheduling. This allows us to offer the time slot to another client." },
+  { question: "What if I need to reschedule?", answer: "You can reschedule up to 24 hours before your appointment with no fee. Cancellations with less than 24-hour notice may incur a 50% service fee." },
+  { question: "What if I'm not satisfied with the cleaning?", answer: "Your satisfaction is guaranteed. If we miss something, call us within 24 hours and we'll return to re-clean the area at no additional charge." }
+];
+---
+
+<Layout
+  title="FAQ — House Cleaning San Francisco | Andreas Cleaning Co."
+  description="Find answers to the most common questions about our house cleaning services in San Francisco — booking, pricing, our team, products, and cancellation policy."
+>
+  <Navbar />
+  <main class="py-20 bg-background" itemscope itemtype="https://schema.org/FAQPage">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-16" data-animate>
+        <h1 class="text-4xl md:text-5xl font-bold text-heading mb-6">Frequently Asked Questions</h1>
+        <p class="text-xl text-body leading-relaxed max-w-2xl mx-auto">
+          Everything you need to know before booking your first clean. If you don't find your answer here, feel free to <a href="/contact" class="text-primary font-bold hover:underline">reach out</a>.
+        </p>
+      </div>
+
+      <div class="space-y-16">
+        <section data-animate>
+          <h2 class="text-2xl font-bold text-heading mb-8 border-l-4 border-primary pl-4">Booking</h2>
+          <FAQ items={bookingFAQ} />
+        </section>
+
+        <section data-animate>
+          <h2 class="text-2xl font-bold text-heading mb-8 border-l-4 border-accent pl-4">Pricing</h2>
+          <FAQ items={pricingFAQ} />
+        </section>
+
+        <section data-animate>
+          <h2 class="text-2xl font-bold text-heading mb-8 border-l-4 border-secondary pl-4">Our Cleaners</h2>
+          <FAQ items={cleanersFAQ} />
+        </section>
+
+        <section data-animate>
+          <h2 class="text-2xl font-bold text-heading mb-8 border-l-4 border-primary pl-4">Products & Safety</h2>
+          <FAQ items={safetyFAQ} />
+        </section>
+
+        <section data-animate>
+          <h2 class="text-2xl font-bold text-heading mb-8 border-l-4 border-accent pl-4">Cancellation & Satisfaction</h2>
+          <FAQ items={cancellationFAQ} />
+        </section>
+      </div>
+    </div>
+  </main>
+  <CTABanner />
+  <Footer />
+</Layout>

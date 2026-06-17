@@ -1,0 +1,224 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { Phone, Mail, MapPin, Clock, ArrowRight } from '@lucide/astro';
+
+const services = [
+  'Standard Cleaning',
+  'Deep Cleaning',
+  'Move In Cleaning',
+  'Move Out Cleaning',
+  'Office Cleaning',
+  'Post-Construction',
+  'Airbnb Turnover',
+  'Other'
+];
+
+const sizes = [
+  'Studio',
+  '1 Bedroom',
+  '2 Bedrooms',
+  '3 Bedrooms',
+  '4+ Bedrooms',
+  'Commercial Space'
+];
+
+const times = [
+  'Morning (7–11 AM)',
+  'Afternoon (11 AM–3 PM)',
+  'Late Afternoon (3–7 PM)'
+];
+---
+
+<Layout
+  title="Get a Free Cleaning Quote | Contact Andreas Cleaning Co."
+  description="Request a free quote for house cleaning services in San Francisco. Fast response, transparent pricing, no commitment required."
+>
+  <Navbar />
+  <main class="py-12 md:py-20 bg-background">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+        
+        <!-- Left column (Contact Info) -->
+        <div class="lg:col-span-1" data-animate>
+          <h1 class="text-4xl font-bold text-heading mb-6 leading-tight">Get Your Free Quote</h1>
+          <p class="text-lg text-body mb-10 leading-relaxed">
+            Fill out the form and we'll get back to you with a transparent quote within <span class="text-primary font-bold">1 hour</span> during business hours.
+          </p>
+
+          <div class="space-y-8">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-primary/5 rounded-full flex items-center justify-center shrink-0">
+                <Phone class="w-5 h-5 text-primary" />
+              </div>
+              <div class="flex flex-col">
+                <span class="text-sm font-bold text-heading uppercase tracking-wider mb-1">Call Us</span>
+                <a href="tel:4155550100" class="text-lg text-body hover:text-primary transition-colors">(415) 555-0100</a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-primary/5 rounded-full flex items-center justify-center shrink-0">
+                <Mail class="w-5 h-5 text-primary" />
+              </div>
+              <div class="flex flex-col">
+                <span class="text-sm font-bold text-heading uppercase tracking-wider mb-1">Email Us</span>
+                <a href="mailto:hello@andreascleaning.com" class="text-lg text-body hover:text-primary transition-colors">hello@andreascleaning.com</a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-primary/5 rounded-full flex items-center justify-center shrink-0">
+                <MapPin class="w-5 h-5 text-primary" />
+              </div>
+              <div class="flex flex-col">
+                <span class="text-sm font-bold text-heading uppercase tracking-wider mb-1">Location</span>
+                <span class="text-lg text-body">Serving all San Francisco neighborhoods</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-primary/5 rounded-full flex items-center justify-center shrink-0">
+                <Clock class="w-5 h-5 text-primary" />
+              </div>
+              <div class="flex flex-col">
+                <span class="text-sm font-bold text-heading uppercase tracking-wider mb-1">Business Hours</span>
+                <span class="text-lg text-body">Mon–Sat: 7:00 AM – 7:00 PM</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-12 p-6 bg-surface-alt rounded-2xl border border-[#E2E8F0]">
+            <p class="text-sm text-muted leading-relaxed">
+              <span class="font-bold text-heading">🔒 Privacy Guarantee:</span> Your information is 100% private and will never be sold or shared with third parties.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right column (Quote Form) -->
+        <div class="lg:col-span-2" data-animate>
+          <div class="bg-surface p-8 md:p-12 rounded-[32px] border border-[#E2E8F0] shadow-xl">
+            <form action="#" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="flex flex-col">
+                <label for="full_name" class="text-sm font-semibold text-heading mb-2">Full Name *</label>
+                <input 
+                  type="text" 
+                  id="full_name" 
+                  name="full_name" 
+                  required 
+                  placeholder="John Doe"
+                  class="bg-background border border-[#CBD5E1] rounded-xl px-4 py-3 text-[15px] focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all placeholder:text-muted/50"
+                />
+              </div>
+
+              <div class="flex flex-col">
+                <label for="email" class="text-sm font-semibold text-heading mb-2">Email Address *</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  required 
+                  placeholder="john@example.com"
+                  class="bg-background border border-[#CBD5E1] rounded-xl px-4 py-3 text-[15px] focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all placeholder:text-muted/50"
+                />
+              </div>
+
+              <div class="flex flex-col">
+                <label for="phone" class="text-sm font-semibold text-heading mb-2">Phone Number</label>
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone" 
+                  placeholder="(415) 000-0000"
+                  class="bg-background border border-[#CBD5E1] rounded-xl px-4 py-3 text-[15px] focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all placeholder:text-muted/50"
+                />
+              </div>
+
+              <div class="flex flex-col">
+                <label for="service_type" class="text-sm font-semibold text-heading mb-2">Service Type *</label>
+                <select 
+                  id="service_type" 
+                  name="service_type" 
+                  required
+                  class="bg-background border border-[#CBD5E1] rounded-xl px-4 py-3 text-[15px] focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all appearance-none cursor-pointer"
+                >
+                  <option value="" disabled selected>Select a service</option>
+                  {services.map(s => <option value={s}>{s}</option>)}
+                </select>
+              </div>
+
+              <div class="flex flex-col">
+                <label for="property_size" class="text-sm font-semibold text-heading mb-2">Property Size *</label>
+                <select 
+                  id="property_size" 
+                  name="property_size" 
+                  required
+                  class="bg-background border border-[#CBD5E1] rounded-xl px-4 py-3 text-[15px] focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all appearance-none cursor-pointer"
+                >
+                  <option value="" disabled selected>Select home size</option>
+                  {sizes.map(s => <option value={s}>{s}</option>)}
+                </select>
+              </div>
+
+              <div class="flex flex-col">
+                <label for="date" class="text-sm font-semibold text-heading mb-2">Preferred Date</label>
+                <input 
+                  type="date" 
+                  id="date" 
+                  name="date"
+                  class="bg-background border border-[#CBD5E1] rounded-xl px-4 py-3 text-[15px] focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all cursor-pointer"
+                />
+              </div>
+
+              <div class="flex flex-col md:col-span-2">
+                <label for="preferred_time" class="text-sm font-semibold text-heading mb-2">Preferred Time Window</label>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {times.map(t => (
+                    <label class="flex items-center gap-3 bg-background border border-[#CBD5E1] rounded-xl px-4 py-3 cursor-pointer hover:border-primary transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+                      <input type="radio" name="preferred_time" value={t} class="w-4 h-4 text-primary focus:ring-primary border-[#CBD5E1]" />
+                      <span class="text-[13px] font-medium text-body">{t}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div class="flex flex-col md:col-span-2">
+                <label for="notes" class="text-sm font-semibold text-heading mb-2">Additional Notes</label>
+                <textarea 
+                  id="notes" 
+                  name="notes" 
+                  rows="4" 
+                  placeholder="Tell us about any specific areas to focus on or entry instructions..."
+                  class="bg-background border border-[#CBD5E1] rounded-xl px-4 py-3 text-[15px] focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all placeholder:text-muted/50 resize-none"
+                ></textarea>
+              </div>
+
+              <div class="md:col-span-2 mt-4">
+                <button 
+                  type="submit" 
+                  class="w-full bg-primary text-white py-4 rounded-full font-bold text-lg hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2 group active:scale-[0.98]"
+                >
+                  Request My Free Quote <ArrowRight class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+                <p class="text-center text-[13px] text-muted mt-6">
+                  We typically respond within 1 hour · No commitment required · No spam, ever.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* Basic HTML5 Validation Styles */
+  input:invalid:not(:placeholder-shown),
+  select:invalid:not(:placeholder-shown) {
+    border-color: var(--error);
+  }
+</style>

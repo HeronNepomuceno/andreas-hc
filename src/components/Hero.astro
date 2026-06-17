@@ -1,0 +1,110 @@
+---
+import { House, CircleCheck, Calendar, Sparkles } from '@lucide/astro';
+---
+
+<section class="min-h-[calc(100vh-72px)] bg-background flex items-center py-12 md:py-20 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    
+    <!-- Left column — copy -->
+    <div data-animate>
+      <div class="inline-flex items-center gap-2 bg-surface-alt px-3 py-1.5 rounded-full text-primary font-semibold text-xs uppercase tracking-wider mb-6">
+        <Sparkles class="w-4 h-4" />
+        Top Rated in San Francisco
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-[48px] font-bold text-heading leading-[1.15] mb-6">
+        San Francisco's Most Trusted House Cleaning Service
+      </h1>
+      <p class="text-lg md:text-xl text-body max-w-xl mb-10 leading-relaxed">
+        Fully insured, background-checked cleaners. Book in 60 seconds. Serving Mission, Pacific Heights, Noe Valley, and beyond.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 mb-10">
+        <a 
+          href="/contact" 
+          class="bg-primary text-white px-8 py-4 rounded-full font-semibold text-center hover:bg-primary-dark transition-all hover:scale-105 shadow-lg shadow-primary/20"
+        >
+          Book Now
+        </a>
+        <a 
+          href="/services" 
+          class="border-2 border-primary text-primary px-8 py-4 rounded-full font-semibold text-center hover:bg-primary hover:text-white transition-all"
+        >
+          See Our Services
+        </a>
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        {[
+          '⭐ 4.9/5 on Google',
+          '✓ Fully Insured & Bonded',
+          '🔒 Background-Checked',
+          '🌿 Eco-Friendly Products'
+        ].map(badge => (
+          <span class="bg-surface px-4 py-1.5 rounded-full text-[13px] text-muted font-medium border border-surface-alt shadow-sm">
+            {badge}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Right column — illustration -->
+    <div class="relative flex justify-center lg:justify-end" data-animate>
+      <!-- Background decoration -->
+      <div class="absolute -top-20 -right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-secondary/5 rounded-full blur-3xl"></div>
+
+      <!-- Illustration Card -->
+      <div class="relative bg-surface p-8 rounded-[32px] border border-surface-alt shadow-2xl max-w-[400px] w-full transform lg:rotate-2 hover:rotate-0 transition-transform duration-500">
+        <div class="flex items-center justify-between mb-8">
+          <div class="flex items-center gap-3">
+            <div class="bg-primary/10 p-2.5 rounded-xl">
+              <House class="w-6 h-6 text-primary" />
+            </div>
+            <span class="text-heading font-bold text-lg">Your Home, Cleaned</span>
+          </div>
+          <div class="bg-success/10 px-3 py-1 rounded-full text-success text-[12px] font-bold">LIVE STATUS</div>
+        </div>
+
+        <div class="space-y-5 mb-8">
+          {[
+            'Kitchen deep cleaned',
+            'Bathrooms sanitized',
+            'Floors mopped & vacuumed',
+            'Fresh-smelling rooms'
+          ].map(item => (
+            <div class="flex items-center gap-4 group">
+              <CircleCheck class="w-6 h-6 text-secondary group-hover:scale-110 transition-transform" />
+              <span class="text-body font-medium">{item}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="bg-surface-alt p-4 rounded-2xl flex items-center justify-between mb-8">
+          <div class="flex items-center gap-3">
+            <Calendar class="w-5 h-5 text-primary" />
+            <div class="flex flex-col">
+              <span class="text-[11px] text-muted font-bold uppercase tracking-wider leading-none mb-1">Next Cleaning</span>
+              <span class="text-heading font-bold text-sm">Tomorrow, 9:00 AM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="flex -space-x-3">
+            {['A', 'M', 'C'].map((initial, i) => (
+              <div 
+                class={`w-10 h-10 rounded-full border-2 border-surface flex items-center justify-center text-white text-sm font-bold shadow-sm`}
+                style={`background-color: var(${i === 0 ? '--primary' : i === 1 ? '--accent' : '--secondary'})`}
+              >
+                {initial}
+              </div>
+            ))}
+            <div class="w-10 h-10 rounded-full border-2 border-surface bg-surface-alt flex items-center justify-center text-muted text-xs font-bold">+2</div>
+          </div>
+          <span class="text-[13px] text-body font-medium">Your team is ready!</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

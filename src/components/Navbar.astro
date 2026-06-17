@@ -1,0 +1,110 @@
+---
+import { Sparkles, Menu, X } from '@lucide/astro';
+
+const navLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: 'About', href: '/about' },
+  { name: 'FAQ', href: '/faq' },
+  { name: 'Contact', href: '/contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-surface shadow-sm">
+  <nav class="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 group">
+      <Sparkles class="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+      <span class="text-heading font-semibold text-lg md:text-xl">Andreas Cleaning Co.</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <div class="hidden md:flex items-center gap-8">
+      {navLinks.map(link => (
+        <a 
+          href={link.href} 
+          class={`text-[15px] font-medium transition-colors hover:text-primary ${currentPath === link.href ? 'text-primary underline decoration-2 underline-offset-8' : 'text-body'}`}
+        >
+          {link.name}
+        </a>
+      ))}
+    </div>
+
+    <!-- Desktop CTA -->
+    <div class="hidden md:block">
+      <a 
+        href="/contact" 
+        class="bg-primary text-white px-5 py-2.5 rounded-full font-medium text-[15px] hover:bg-primary-dark transition-all active:scale-95"
+      >
+        Get a Free Quote
+      </a>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button id="menu-toggle" class="md:hidden p-2 text-heading" aria-label="Toggle Menu">
+      <Menu id="menu-icon" class="w-6 h-6" />
+      <X id="close-icon" class="w-6 h-6 hidden" />
+    </button>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu" class="hidden md:hidden absolute top-[72px] left-0 w-full bg-surface border-t border-surface-alt shadow-lg transition-all duration-300 overflow-hidden h-0">
+    <div class="px-6 py-8 flex flex-col gap-6">
+      {navLinks.map(link => (
+        <a 
+          href={link.href} 
+          class={`text-lg font-medium ${currentPath === link.href ? 'text-primary' : 'text-body'}`}
+        >
+          {link.name}
+        </a>
+      ))}
+      <a 
+        href="/contact" 
+        class="bg-primary text-white px-6 py-3 rounded-full font-medium text-center hover:bg-primary-dark transition-colors mt-2"
+      >
+        Get a Free Quote
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  if (menuToggle && mobileMenu && menuIcon && closeIcon) {
+    let isOpen = false;
+
+    menuToggle.addEventListener('click', () => {
+      isOpen = !isOpen;
+      
+      if (isOpen) {
+        mobileMenu.classList.remove('hidden');
+        // Small delay to allow transition
+        setTimeout(() => {
+          mobileMenu.style.height = 'auto';
+          const height = mobileMenu.scrollHeight + 'px';
+          mobileMenu.style.height = '0px';
+          setTimeout(() => {
+            mobileMenu.style.height = height;
+          }, 10);
+        }, 10);
+        
+        menuIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      } else {
+        mobileMenu.style.height = '0px';
+        setTimeout(() => {
+          mobileMenu.classList.add('hidden');
+        }, 300);
+        
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    });
+  }
+</script>

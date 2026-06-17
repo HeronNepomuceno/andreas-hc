@@ -1,0 +1,26 @@
+---
+import { Users, Star, Award, ShieldCheck } from '@lucide/astro';
+
+const stats = [
+  { icon: Users, number: '500+', label: 'Happy Clients' },
+  { icon: Star, number: '4.9/5', label: 'Average Rating' },
+  { icon: Award, number: '10+ Years', label: 'In Business' },
+  { icon: ShieldCheck, number: '100%', label: 'Satisfaction Guaranteed' }
+];
+---
+
+<section class="bg-surface-alt py-12 border-y border-[#E2E8F0]">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      {stats.map(stat => (
+        <div class="flex flex-col items-center text-center group" data-animate>
+          <div class="mb-4 p-3 bg-surface rounded-2xl shadow-sm group-hover:scale-110 transition-transform duration-300">
+            <stat.icon class="w-6 h-6 text-accent" />
+          </div>
+          <span class="text-2xl md:text-3xl font-bold text-heading mb-1">{stat.number}</span>
+          <span class="text-[13px] md:text-sm text-muted font-medium uppercase tracking-wider">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

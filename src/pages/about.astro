@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { ShieldCheck, Leaf, CalendarCheck, Banknote } from '@lucide/astro';
+
+const values = [
+  {
+    icon: ShieldCheck,
+    title: 'Trustworthy',
+    description: 'Every cleaner is vetted, insured, and background-checked for your total peace of mind.'
+  },
+  {
+    icon: Leaf,
+    title: 'Eco-Friendly',
+    description: 'We use non-toxic, biodegradable products safe for your family, pets, and the environment.'
+  },
+  {
+    icon: CalendarCheck,
+    title: 'Flexible',
+    description: 'Book, reschedule, or cancel with 24-hour notice — we work around your busy schedule.'
+  },
+  {
+    icon: Banknote,
+    title: 'Transparent Pricing',
+    description: 'No hidden fees or surprise charges. You know the exact price before we even arrive.'
+  }
+];
+
+const team = [
+  {
+    name: 'Andreas M.',
+    role: 'Founder & Head Cleaner',
+    initials: 'AM',
+    bio: 'Born in Brazil, relocated to SF in 2012. Passionate about hospitality and creating spotless spaces for local families.',
+    color: 'bg-primary'
+  },
+  {
+    name: 'Maria S.',
+    role: 'Operations Manager',
+    initials: 'MS',
+    bio: 'Ensures every job is scheduled smoothly and every client is 100% happy. The heart of our customer service.',
+    color: 'bg-accent'
+  },
+  {
+    name: 'Carlos B.',
+    role: 'Senior Cleaner',
+    initials: 'CB',
+    bio: '5+ years with the company. Specializes in complex deep cleans and meticulous post-construction jobs.',
+    color: 'bg-secondary'
+  }
+];
+---
+
+<Layout
+  title="About Andreas Cleaning Co. | Trusted House Cleaning in San Francisco"
+  description="Learn about our story, our values, and the background-checked team behind San Francisco's most trusted house cleaning service."
+>
+  <Navbar />
+  <main>
+    <!-- About Hero -->
+    <section class="py-20 bg-background border-b border-surface-alt">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div data-animate>
+            <h1 class="text-4xl md:text-5xl font-bold text-heading mb-8">About Andreas Cleaning Co.</h1>
+            <div class="space-y-6 text-lg text-body leading-relaxed">
+              <p>
+                Founded in 2015, Andreas Cleaning Co. started with a simple mission: to provide San Francisco residents with a cleaning service they could truly trust. We understood that inviting someone into your home is a big decision, and we wanted to set a new standard for reliability and quality.
+              </p>
+              <p>
+                Today, we've grown into a team of dedicated professionals serving neighborhoods from the Mission to Pacific Heights. We remain committed to our founding principles: exceptional attention to detail, eco-friendly practices, and treated every home as if it were our own.
+              </p>
+            </div>
+          </div>
+          <div class="relative" data-animate>
+            <div class="aspect-video bg-surface-alt rounded-3xl border border-[#E2E8F0] shadow-2xl flex items-center justify-center p-12 overflow-hidden">
+               <!-- Abstract Team/SF Illustration -->
+               <div class="relative z-10 text-center">
+                  <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-md mb-4">
+                    <span class="w-3 h-3 bg-secondary rounded-full animate-pulse"></span>
+                    <span class="text-sm font-bold text-heading tracking-wide uppercase">Serving SF Since 2015</span>
+                  </div>
+                  <h3 class="text-2xl font-bold text-primary">Reliable. Professional. Local.</h3>
+               </div>
+               <div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Values -->
+    <section class="py-20 bg-surface-alt">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16" data-animate>
+          <h2 class="text-3xl font-bold text-heading mb-4">Our Values</h2>
+          <p class="text-lg text-muted">The core principles that guide everything we do.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {values.map(value => (
+            <div class="bg-surface p-8 rounded-2xl border border-[#E2E8F0] shadow-sm" data-animate>
+              <div class="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center mb-6">
+                <value.icon class="w-6 h-6 text-primary" />
+              </div>
+              <h3 class="text-xl font-bold text-heading mb-3">{value.title}</h3>
+              <p class="text-[15px] text-body leading-relaxed">{value.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Meet the Team -->
+    <section class="py-20 bg-background">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16" data-animate>
+          <h2 class="text-3xl font-bold text-heading mb-4">Meet the Team</h2>
+          <p class="text-lg text-muted">The experts behind your spotless home.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {team.map(member => (
+            <div class="bg-surface p-8 rounded-2xl border border-[#E2E8F0] text-center group hover:shadow-lg transition-all" data-animate>
+              <div class={`w-20 h-20 ${member.color} text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-md group-hover:scale-110 transition-transform`}>
+                {member.initials}
+              </div>
+              <h3 class="text-xl font-bold text-heading mb-1">{member.name}</h3>
+              <p class="text-primary font-semibold text-sm mb-4 uppercase tracking-wider">{member.role}</p>
+              <p class="text-[15px] text-body leading-relaxed italic">
+                "{member.bio}"
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="py-16 border-t border-surface-alt">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+           {['OSHA Certified', 'Google 4.9★', 'Yelp Top Rated', 'Fully Insured in CA'].map(badge => (
+             <span class="text-lg font-bold text-heading tracking-tighter uppercase whitespace-nowrap">
+               {badge}
+             </span>
+           ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

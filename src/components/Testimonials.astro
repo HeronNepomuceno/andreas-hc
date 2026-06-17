@@ -1,0 +1,63 @@
+---
+import { Star } from '@lucide/astro';
+
+const testimonials = [
+  {
+    name: 'Sarah M.',
+    neighborhood: 'Mission District',
+    initials: 'SM',
+    text: "We've tried several cleaning services in SF and Andreas Cleaning Co. is by far the best. They're thorough, punctual, and always leave our apartment looking immaculate.",
+    color: 'bg-primary'
+  },
+  {
+    name: 'James T.',
+    neighborhood: 'Pacific Heights',
+    initials: 'JT',
+    text: "I booked a deep clean before moving out of my old apartment and got my full security deposit back! Incredibly professional team. Highly recommend.",
+    color: 'bg-accent'
+  },
+  {
+    name: 'Linda R.',
+    neighborhood: 'Noe Valley',
+    initials: 'LR',
+    text: "As an Airbnb host, I need reliable turnovers on tight schedules. Andreas's team never misses a beat. My guests consistently mention how clean everything is.",
+    color: 'bg-secondary'
+  }
+];
+---
+
+<section class="py-20 bg-background">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16" data-animate>
+      <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">What Our Clients Say</h2>
+      <p class="text-lg text-muted">Trusted by hundreds of homeowners across San Francisco.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {testimonials.map(item => (
+        <div 
+          class="bg-surface p-8 rounded-2xl border border-[#E2E8F0] shadow-sm hover:shadow-md transition-shadow"
+          data-animate
+        >
+          <div class="flex gap-1 mb-6">
+            {[...Array(5)].map(() => (
+              <Star class="w-5 h-5 fill-warning text-warning" />
+            ))}
+          </div>
+          <p class="text-[15px] text-body italic leading-relaxed mb-8">
+            "{item.text}"
+          </p>
+          <div class="flex items-center gap-4">
+            <div class={`w-11 h-11 ${item.color} text-white rounded-full flex items-center justify-center font-bold text-sm shadow-sm`}>
+              {item.initials}
+            </div>
+            <div class="flex flex-col">
+              <span class="text-[15px] font-bold text-heading leading-tight">{item.name}</span>
+              <span class="text-[13px] text-muted">{item.neighborhood}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

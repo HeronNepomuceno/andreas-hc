@@ -1,11 +1,49 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import Services from '../components/Services.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CTABanner from '../components/CTABanner.astro';
+import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const faqItems = [
+  { question: "How do I book a cleaning?", answer: "You can request a quote through our contact form or call us directly at (415) 555-0100. We'll confirm availability within 1 hour during business hours." },
+  { question: "Are your cleaners background-checked?", answer: "Yes. Every member of our team goes through a thorough background check and identity verification before their first shift. Your safety and peace of mind are our top priorities." },
+  { question: "Do I need to be home during the cleaning?", answer: "No. Many of our clients provide a spare key or access code. Your home and belongings are fully covered by our comprehensive liability insurance." },
+  { question: "What cleaning products do you use?", answer: "We use eco-friendly, non-toxic cleaning products that are safe for children and pets. If you have specific product preferences or allergies, just let us know and we'll accommodate them." }
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="House Cleaning Services San Francisco | Andreas Cleaning Co."
+  description="Professional, insured house cleaning services in San Francisco. Background-checked cleaners, eco-friendly products. Book online in 60 seconds. First clean 15% off."
+>
+  <Navbar />
+  <main>
+    <Hero />
+    <TrustBar />
+    <Services />
+    <HowItWorks />
+    <Testimonials />
+    <CTABanner />
+    
+    <section class="py-20 bg-surface-alt">
+      <div class="max-w-3xl mx-auto px-6">
+        <div class="text-center mb-16" data-animate>
+          <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">Common Questions</h2>
+          <p class="text-lg text-muted">
+            Can't find your answer? <a href="/contact" class="text-primary font-semibold hover:underline">Contact us</a>.
+          </p>
+        </div>
+        <div data-animate>
+          <FAQ items={faqItems} />
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
 </Layout>

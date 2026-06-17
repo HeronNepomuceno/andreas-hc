@@ -1,0 +1,56 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Request a Quote',
+    description: 'Fill out our quick online form with your home size and preferred date. Takes under 2 minutes.'
+  },
+  {
+    number: '02',
+    title: "We'll Confirm",
+    description: 'Our team reviews your request and confirms availability within 1 hour during business hours.'
+  },
+  {
+    number: '03',
+    title: 'We Clean, You Relax',
+    description: 'Your background-checked cleaner arrives on time and leaves your home spotless.'
+  }
+];
+---
+
+<section class="py-20 bg-surface-alt overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16" data-animate>
+      <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">Booking Is Simple</h2>
+      <p class="text-lg text-muted">Get your home professionally cleaned in 3 easy steps.</p>
+    </div>
+
+    <div class="relative">
+      <!-- Dashed Line Connector (Desktop) -->
+      <div class="hidden lg:block absolute top-7 left-1/2 -translate-x-1/2 w-[70%] h-0.5 border-t-2 border-dashed border-slate-300 z-0"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-20 relative z-10">
+        {steps.map((step) => (
+          <div class="flex flex-col items-center text-center group" data-animate>
+            <div class="w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+              {step.number}
+            </div>
+            <h3 class="text-xl font-bold text-heading mt-6 mb-4">{step.title}</h3>
+            <p class="text-body leading-relaxed max-w-sm">
+              {step.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-16 text-center" data-animate>
+      <a 
+        href="/contact" 
+        class="inline-block bg-heading text-white px-8 py-4 rounded-full font-semibold hover:bg-heading/90 transition-all active:scale-95"
+      >
+        Start My Quote Request
+      </a>
+    </div>
+  </div>
+</section>

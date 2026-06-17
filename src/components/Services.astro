@@ -1,0 +1,66 @@
+---
+import { Sparkles, Layers, PackageOpen, Building2, HardHat, BedDouble, ArrowRight } from '@lucide/astro';
+
+const services = [
+  {
+    icon: Sparkles,
+    title: 'Standard Cleaning',
+    description: 'Regular scheduled cleanings to keep your home consistently fresh and tidy. Perfect for busy families.'
+  },
+  {
+    icon: Layers,
+    title: 'Deep Cleaning',
+    description: 'A thorough top-to-bottom clean, perfect for seasonal resets or first-time bookings. We cover every corner.'
+  },
+  {
+    icon: PackageOpen,
+    title: 'Move In / Move Out',
+    description: 'Leave your old place spotless or arrive to a perfectly clean new home. Stress-free transition guaranteed.'
+  },
+  {
+    icon: Building2,
+    title: 'Office & Commercial',
+    description: 'Professional workspace cleaning that keeps your team productive and your clients impressed.'
+  },
+  {
+    icon: HardHat,
+    title: 'Post-Construction',
+    description: 'We remove dust, debris, and residue so your newly built or renovated space is move-in ready.'
+  },
+  {
+    icon: BedDouble,
+    title: 'Airbnb & Vacation Rental',
+    description: 'Fast, reliable turnover cleaning between guests to keep your reviews glowing and your hosting simple.'
+  }
+];
+---
+
+<section id="services" class="py-20 bg-background">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16" data-animate>
+      <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">What We Clean</h2>
+      <p class="text-lg text-muted">From regular upkeep to specialized deep cleans — we handle it all with precision and care.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {services.map(service => (
+        <div 
+          class="bg-surface p-8 rounded-2xl border border-[#E2E8F0] hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group"
+          data-animate
+        >
+          <div class="w-14 h-14 bg-primary/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors">
+            <service.icon class="w-7 h-7 text-primary" />
+          </div>
+          <h3 class="text-xl font-bold text-heading mb-3">{service.title}</h3>
+          <p class="text-[15px] text-body leading-relaxed mb-6">{service.description}</p>
+          <a 
+            href="/services" 
+            class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
+          >
+            Learn More <ArrowRight class="w-4 h-4" />
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

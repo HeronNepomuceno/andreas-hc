@@ -1,0 +1,71 @@
+---
+import { ChevronDown } from '@lucide/astro';
+
+interface Props {
+  items: Array<{ question: string, answer: string }>;
+}
+
+const { items } = Astro.props;
+---
+
+<div class="space-y-2" itemscope itemtype="https://schema.org/FAQPage">
+  {items.map((item) => (
+    <div 
+      class="border-b border-slate-200 last:border-0 overflow-hidden" 
+      itemscope 
+      itemprop="mainEntity" 
+      itemtype="https://schema.org/Question"
+    >
+      <button 
+        class="faq-trigger w-full flex items-center justify-between py-6 text-left group transition-all"
+        aria-expanded="false"
+      >
+        <span class="text-[17px] font-semibold text-heading group-hover:text-primary transition-colors pr-8" itemprop="name">
+          {item.question}
+        </span>
+        <ChevronDown class="w-5 h-5 text-muted group-hover:text-primary transition-all duration-300 transform shrink-0" />
+      </button>
+      
+      <div 
+        class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out"
+        itemscope 
+        itemprop="acceptedAnswer" 
+        itemtype="https://schema.org/Answer"
+      >
+        <div class="pb-6 pr-12 text-[15px] text-body leading-relaxed" itemprop="text">
+          {item.answer}
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+  function initFAQ() {
+    const triggers = document.querySelectorAll('.faq-trigger');
+    
+    triggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const content = trigger.nextElementSibling as HTMLElement;
+        const icon = trigger.querySelector('svg');
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+        
+        // Close others (optional, but requested "Allow multiple open at once", so we won't close others)
+        
+        trigger.setAttribute('aria-expanded', (!isExpanded).toString());
+        
+        if (!isExpanded) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          icon?.classList.add('rotate-180');
+        } else {
+          content.style.maxHeight = '0px';
+          icon?.classList.remove('rotate-180');
+        }
+      });
+    });
+  }
+
+  // Handle both initial load and view transitions
+  initFAQ();
+  document.addEventListener('astro:after-swap', initFAQ);
+</script>
