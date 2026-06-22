@@ -1,0 +1,198 @@
+---
+import { MapPin, Phone, Clock, ExternalLink } from '@lucide/astro';
+
+interface HoursEntry {
+  day: string;
+  short: string;
+  open: string | null;
+  close: string | null;
+}
+
+const hours: HoursEntry[] = [
+  { day: 'Monday',    short: 'Mon', open: '9:00 AM', close: '8:00 PM' },
+  { day: 'Tuesday',   short: 'Tue', open: '9:00 AM', close: '8:00 PM' },
+  { day: 'Wednesday', short: 'Wed', open: '9:00 AM', close: '8:00 PM' },
+  { day: 'Thursday',  short: 'Thu', open: '9:00 AM', close: '8:00 PM' },
+  { day: 'Friday',    short: 'Fri', open: '9:00 AM', close: '8:00 PM' },
+  { day: 'Saturday',  short: 'Sat', open: '9:00 AM', close: '8:00 PM' },
+  { day: 'Sunday',    short: 'Sun', open: null,       close: null       },
+];
+
+const mapsUrl = 'https://maps.google.com/?q=455+Eastmoor+Ave,+Daly+City,+CA+94015';
+---
+
+<section class="py-20 bg-background" id="location">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Section header -->
+    <div class="text-center max-w-2xl mx-auto mb-14" data-animate>
+      <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">Location & Hours</h2>
+      <p class="text-lg text-muted">
+        Based in Daly City, serving the greater San Francisco Bay Area.
+      </p>
+    </div>
+
+    <!-- Card grid -->
+    <div
+      class="grid grid-cols-1 lg:grid-cols-5 rounded-3xl overflow-hidden border border-[#E2E8F0] shadow-xl"
+      data-animate
+    >
+
+      <!-- ── LEFT: Map ──────────────────────────────────────── -->
+      <div class="relative lg:col-span-3 min-h-[320px] lg:min-h-0">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d50518.76675043719!2d-122.5121498!3d37.6862656!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7c883a4bffff%3A0x1613a33e846270fe!2sAndrea&#39;s%20Perfect%20Cleaning!5e0!3m2!1spt-BR!2sbr!4v1782086202908!5m2!1spt-BR!2sbr"
+          class="absolute inset-0 w-full h-full"
+          style="border:0;"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Andrea's Perfect Cleaning location on Google Maps"
+        ></iframe>
+
+        <!-- Address overlay chip -->
+        <a
+          href={mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="absolute bottom-4 left-4 right-4 sm:right-auto flex items-center gap-3 bg-white/95 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg hover:shadow-xl transition-shadow group max-w-xs"
+        >
+          <div class="w-9 h-9 bg-primary rounded-xl flex items-center justify-center shrink-0">
+            <MapPin class="w-4 h-4 text-white" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-[13px] font-bold text-heading leading-tight">455 Eastmoor Ave</p>
+            <p class="text-[12px] text-muted truncate">Daly City, CA 94015</p>
+          </div>
+          <ExternalLink class="w-4 h-4 text-muted group-hover:text-primary transition-colors shrink-0" />
+        </a>
+      </div>
+
+      <!-- ── RIGHT: Info panel ──────────────────────────────── -->
+      <div class="lg:col-span-2 bg-surface flex flex-col">
+
+        <!-- Status bar -->
+        <div class="px-8 pt-8 pb-6 border-b border-[#F1F5F9]">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="text-[15px] font-bold text-heading uppercase tracking-widest">Hours</h3>
+            <div id="status-badge" class="flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wide">
+              <!-- filled by JS -->
+            </div>
+          </div>
+
+          <!-- Quick contact -->
+          <div class="flex flex-col gap-3">
+            <a
+              href="tel:4155550100"
+              class="flex items-center gap-3 text-[14px] text-body hover:text-primary transition-colors group"
+            >
+              <div class="w-8 h-8 bg-primary/5 rounded-lg flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                <Phone class="w-4 h-4 text-primary" />
+              </div>
+              <span class="font-medium">(415) 374-1720</span>
+            </a>
+            <div class="flex items-center gap-3 text-[14px] text-muted">
+              <div class="w-8 h-8 bg-primary/5 rounded-lg flex items-center justify-center">
+                <Clock class="w-4 h-4 text-primary" />
+              </div>
+              <span>Serving Daly City &amp; SF Bay Area</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hours list -->
+        <div class="px-8 py-6 flex-1">
+          <ul class="space-y-0.5" role="list">
+            {hours.map((entry, i) => (
+              <li
+                class:list={[
+                  'hours-row flex items-center justify-between py-2.5',
+                  i < 6 && 'border-b border-[#F1F5F9] last:border-0',
+                ]}
+                data-day={entry.day}
+              >
+                <span class="day-label text-[14px] font-medium text-body w-24">{entry.day}</span>
+
+                {entry.open && entry.close ? (
+                  <span class="text-[14px] text-body tabular-nums">
+                    {entry.open} – {entry.close}
+                  </span>
+                ) : (
+                  <span class="text-[13px] font-semibold text-error uppercase tracking-wide">Closed</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- CTA -->
+        <div class="px-8 pb-8">
+          <a
+            href="/contact"
+            class="block w-full bg-primary text-white text-center py-3.5 rounded-2xl font-semibold text-[15px] hover:bg-primary-dark transition-all active:scale-[0.98] shadow-lg shadow-primary/20"
+          >
+            Book a Cleaning
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  function initLocationHours() {
+    const now = new Date();
+    // 0 = Sunday … 6 = Saturday
+    const dayIndex = now.getDay();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+    const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const todayName = dayNames[dayIndex];
+
+    // Business hours in minutes from midnight
+    const OPEN_MIN  = 9  * 60;      // 9:00 AM
+    const CLOSE_MIN = 20 * 60;      // 8:00 PM
+    const isClosed  = dayIndex === 0; // Sunday always closed
+
+    const isOpenNow = !isClosed && currentMinutes >= OPEN_MIN && currentMinutes < CLOSE_MIN;
+
+    // ── Highlight today's row ──────────────────────────────────
+    document.querySelectorAll<HTMLLIElement>('.hours-row').forEach(row => {
+      const day = row.dataset.day;
+      if (day === todayName) {
+        row.classList.add('bg-primary/5', 'rounded-xl', 'px-3', '-mx-3');
+        const label = row.querySelector('.day-label');
+        if (label) label.classList.add('text-primary', 'font-bold');
+      }
+    });
+
+    // ── Status badge ───────────────────────────────────────────
+    const badge = document.getElementById('status-badge');
+    if (badge) {
+      if (isOpenNow) {
+        badge.innerHTML = `
+          <span class="w-1.5 h-1.5 bg-success rounded-full animate-pulse"></span>
+          <span class="text-success">Open now</span>`;
+        badge.classList.add('bg-success/10');
+      } else {
+        // Calculate next opening
+        let msg = 'Closed';
+        if (!isClosed && currentMinutes < OPEN_MIN) {
+          msg = 'Opens at 9 AM';
+        } else {
+          // next weekday
+          const next = dayIndex === 6 ? 'Monday' : dayNames[(dayIndex + 1) % 7 === 0 ? 1 : (dayIndex + 1) % 7];
+          msg = `Opens ${next}`;
+        }
+        badge.innerHTML = `
+          <span class="w-1.5 h-1.5 bg-error rounded-full"></span>
+          <span class="text-error">${msg}</span>`;
+        badge.classList.add('bg-error/10');
+      }
+    }
+  }
+
+  initLocationHours();
+  document.addEventListener('astro:after-swap', initLocationHours);
+</script>
