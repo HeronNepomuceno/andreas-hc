@@ -74,32 +74,15 @@ const yelpUrl = yelp?.url || 'https://www.yelp.com/biz/andreas-perfect-cleaning-
           href={yelpUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="group flex flex-col gap-4 bg-[#FFF5F5] hover:bg-[#FFEAEA] border border-[#FECACA] rounded-2xl p-5 transition-all duration-300 hover:shadow-md hover:border-[#F87171]"
+          class="group flex flex-col gap-4 bg-surface-alt/70 hover:bg-surface border border-surface-alt rounded-2xl p-5 transition-all duration-300 hover:shadow-md hover:border-primary/20"
           aria-label="Read our reviews on Yelp"
         >
           <!-- Yelp logo + "Read our reviews" -->
           <div class="flex items-center justify-between">
-            <!-- Yelp SVG logo (official wordmark, red) -->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 60 28"
-              class="h-7 w-auto"
-              aria-label="Yelp"
-              role="img"
-            >
-              <!-- "Yelp" wordmark hand-drawn paths approximating the official shape -->
-              <text
-                x="0" y="22"
-                font-family="Georgia, 'Times New Roman', serif"
-                font-size="26"
-                font-weight="900"
-                fill="#FF1A1A"
-                letter-spacing="-1"
-              >Yelp</text>
-            </svg>
+            <span class="text-[17px] font-semibold tracking-tight text-heading">Yelp</span>
 
             <!-- Arrow indicator -->
-            <span class="w-8 h-8 rounded-full bg-white border border-[#FECACA] flex items-center justify-center text-[#FF1A1A] group-hover:bg-[#FF1A1A] group-hover:border-[#FF1A1A] group-hover:text-white transition-all duration-300 shrink-0">
+            <span class="w-8 h-8 rounded-full bg-surface border border-surface-alt flex items-center justify-center text-primary group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-all duration-300 shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M7 17L17 7M17 7H7M17 7v10"/>
               </svg>
@@ -113,7 +96,7 @@ const yelpUrl = yelp?.url || 'https://www.yelp.com/biz/andreas-perfect-cleaning-
               {[...Array(5)].map((_, i) => (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class={`w-4 h-4 ${i < 4 ? 'text-[#FF1A1A]' : 'text-[#FF1A1A]'}`}
+                  class={`w-4 h-4 ${i < 4 ? 'text-primary' : 'text-primary/70'}`}
                   viewBox="0 0 24 24"
                   fill={i < 5 ? 'currentColor' : 'none'}
                   stroke="currentColor"
@@ -125,7 +108,7 @@ const yelpUrl = yelp?.url || 'https://www.yelp.com/biz/andreas-perfect-cleaning-
             </div>
             {yelp ? (
               <>
-                <span class="text-[15px] font-bold text-[#CC0000]">{yelp.rating.toFixed(1)}</span>
+                <span class="text-[15px] font-bold text-heading">{yelp.rating.toFixed(1)}</span>
                 <span class="text-[13px] text-muted">· {yelp.reviewCount.toLocaleString('en-US')} reviews</span>
               </>
             ) : (
@@ -134,7 +117,7 @@ const yelpUrl = yelp?.url || 'https://www.yelp.com/biz/andreas-perfect-cleaning-
           </div>
 
           <!-- CTA text -->
-          <p class="text-[13px] text-[#991B1B] font-semibold leading-snug group-hover:text-[#CC0000] transition-colors">
+          <p class="text-[13px] text-body font-semibold leading-snug group-hover:text-primary transition-colors">
             See what our customers are saying →
           </p>
         </a>
