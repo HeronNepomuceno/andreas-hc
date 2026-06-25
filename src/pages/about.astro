@@ -2,159 +2,155 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { ShieldCheck, Leaf, CalendarCheck, Banknote } from '@lucide/astro';
+import { ShieldCheck, Leaf, Phone, Clock3, Star } from '@lucide/astro';
 import { getYelpData } from '../utils/yelp';
 
 const yelp = await getYelpData();
 
-const values = [
-  {
-    icon: ShieldCheck,
-    title: 'Trustworthy',
-    description: 'Every cleaner is vetted, insured, and background-checked for your total peace of mind.'
-  },
-  {
-    icon: Leaf,
-    title: 'Eco-Friendly',
-    description: 'We use non-toxic, biodegradable products safe for your family, pets, and the environment.'
-  },
-  {
-    icon: CalendarCheck,
-    title: 'Flexible',
-    description: 'Book, reschedule, or cancel with 24-hour notice — we work around your busy schedule.'
-  },
-  {
-    icon: Banknote,
-    title: 'Transparent Pricing',
-    description: 'No hidden fees or surprise charges. You know the exact price before we even arrive.'
-  }
-];
-
-const team = [
-  {
-    name: 'Andreas M.',
-    role: 'Founder & Head Cleaner',
-    initials: 'AM',
-    bio: 'Born in Brazil, relocated to SF in 2012. Passionate about hospitality and creating spotless spaces for local families.',
-    color: 'bg-primary'
-  },
-  {
-    name: 'Maria S.',
-    role: 'Operations Manager',
-    initials: 'MS',
-    bio: 'Ensures every job is scheduled smoothly and every client is 100% happy. The heart of our customer service.',
-    color: 'bg-accent'
-  },
-  {
-    name: 'Carlos B.',
-    role: 'Senior Cleaner',
-    initials: 'CB',
-    bio: '5+ years with the company. Specializes in complex deep cleans and meticulous post-construction jobs.',
-    color: 'bg-secondary'
-  }
-];
-
-const badges = [
-  'OSHA Certified',
-  'Google 4.9★',
-  yelp ? `Yelp ${yelp.rating.toFixed(1)}★` : 'Yelp Reviews',
-  'Fully Insured in CA'
+const highlights = [
+  yelp ? `${yelp.rating.toFixed(1)} Yelp rating` : 'Yelp-reviewed business',
+  'Established in 2018',
+  'Business phone: (415) 374-1720'
 ];
 ---
 
 <Layout
-  title="About Andreas Cleaning Co. | Trusted House Cleaning in San Francisco"
-  description="Learn about our story, our values, and the background-checked team behind San Francisco's most trusted house cleaning service."
+  title="About Andreas Cleaning Co. | House Cleaning in Daly City and the Bay Area"
+  description="Learn how Andreas Cleaning Co. grew from a 2018 local cleaning business into a Bay Area service focused on safety, quality, and reliable deep and regular cleaning."
   yelp={yelp}
 >
   <Navbar />
   <main>
-    <!-- About Hero -->
     <section class="py-20 bg-background border-b border-surface-alt">
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div data-animate>
-            <h1 class="text-4xl md:text-5xl font-bold text-heading mb-8">About Andreas Cleaning Co.</h1>
-            <div class="space-y-6 text-lg text-body leading-relaxed">
-              <p>
-                Founded in 2015, Andreas Cleaning Co. started with a simple mission: to provide San Francisco residents with a cleaning service they could truly trust. We understood that inviting someone into your home is a big decision, and we wanted to set a new standard for reliability and quality.
-              </p>
-              <p>
-                Today, we've grown into a team of dedicated professionals serving neighborhoods from the Mission to Pacific Heights. We remain committed to our founding principles: exceptional attention to detail, eco-friendly practices, and treated every home as if it were our own.
-              </p>
+            <div class="inline-flex items-center gap-2 bg-surface-alt px-3 py-1.5 rounded-full text-primary font-semibold text-xs uppercase tracking-wider mb-6">
+              <Star class="w-4 h-4" />
+              Bay Area Cleaning Company
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-heading mb-6 leading-tight">
+              Professional cleaning services built on safety, quality, and consistency.
+            </h1>
+            <p class="text-lg text-body leading-relaxed mb-8 max-w-2xl">
+              Andreas Cleaning Co. was established in 2018 and grew through local outreach, a stronger Yelp presence, and a focus on repeat clients.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {highlights.map((item) => (
+                <div class="flex items-center gap-3 bg-surface rounded-2xl border border-surface-alt px-4 py-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-primary shrink-0"></span>
+                  <span class="text-[15px] text-body">{item}</span>
+                </div>
+              ))}
             </div>
           </div>
+
           <div class="relative" data-animate>
-            <div class="aspect-video bg-surface-alt rounded-3xl border border-[#E2E8F0] shadow-2xl flex items-center justify-center p-12 overflow-hidden">
-               <!-- Abstract Team/SF Illustration -->
-               <div class="relative z-10 text-center">
-                  <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-md mb-4">
-                    <span class="w-3 h-3 bg-secondary rounded-full animate-pulse"></span>
-                    <span class="text-sm font-bold text-heading tracking-wide uppercase">Serving SF Since 2015</span>
-                  </div>
-                  <h3 class="text-2xl font-bold text-primary">Reliable. Professional. Local.</h3>
-               </div>
-               <div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent"></div>
+            <div class="aspect-[4/3] bg-surface rounded-3xl border border-surface-alt shadow-2xl p-8 overflow-hidden">
+              <div class="flex items-start justify-between mb-8">
+                <div>
+                  <p class="text-[11px] font-bold text-muted uppercase tracking-widest mb-1">About the business</p>
+                  <h2 class="text-2xl font-bold text-heading">Established in 2018</h2>
+                </div>
+                <div class="flex items-center gap-1.5 bg-success/10 px-3 py-1 rounded-full">
+                  <span class="w-1.5 h-1.5 bg-success rounded-full animate-pulse"></span>
+                  <span class="text-success text-[11px] font-bold uppercase tracking-wide">Serving clients</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="rounded-2xl bg-surface-alt p-4">
+                  <Phone class="w-5 h-5 text-primary mb-3" />
+                  <p class="text-[11px] uppercase tracking-wider text-muted mb-1">Phone</p>
+                  <p class="text-[15px] font-semibold text-heading">(415) 374-1720</p>
+                </div>
+                <div class="rounded-2xl bg-surface-alt p-4">
+                  <Clock3 class="w-5 h-5 text-primary mb-3" />
+                  <p class="text-[11px] uppercase tracking-wider text-muted mb-1">Since</p>
+                  <p class="text-[15px] font-semibold text-heading">2018</p>
+                </div>
+              </div>
+
+              <div class="rounded-2xl border border-surface-alt p-5 bg-background">
+                <p class="text-sm text-muted uppercase tracking-wider mb-3">Current focus</p>
+                <p class="text-[15px] text-body leading-relaxed">
+                  Serving homes and repeat clients across the Bay Area with a cleaner, more reliable service experience.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Our Values -->
-    <section class="py-20 bg-surface-alt">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16" data-animate>
-          <h2 class="text-3xl font-bold text-heading mb-4">Our Values</h2>
-          <p class="text-lg text-muted">The core principles that guide everything we do.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {values.map(value => (
-            <div class="bg-surface p-8 rounded-2xl border border-[#E2E8F0] shadow-sm" data-animate>
-              <div class="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center mb-6">
-                <value.icon class="w-6 h-6 text-primary" />
-              </div>
-              <h3 class="text-xl font-bold text-heading mb-3">{value.title}</h3>
-              <p class="text-[15px] text-body leading-relaxed">{value.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- Meet the Team -->
     <section class="py-20 bg-background">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16" data-animate>
-          <h2 class="text-3xl font-bold text-heading mb-4">Meet the Team</h2>
-          <p class="text-lg text-muted">The experts behind your spotless home.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {team.map(member => (
-            <div class="bg-surface p-8 rounded-2xl border border-[#E2E8F0] text-center group hover:shadow-lg transition-all" data-animate>
-              <div class={`w-20 h-20 ${member.color} text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-md group-hover:scale-110 transition-transform`}>
-                {member.initials}
-              </div>
-              <h3 class="text-xl font-bold text-heading mb-1">{member.name}</h3>
-              <p class="text-primary font-semibold text-sm mb-4 uppercase tracking-wider">{member.role}</p>
-              <p class="text-[15px] text-body leading-relaxed italic">
-                "{member.bio}"
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <div data-animate>
+            <div class="inline-flex items-center gap-2 bg-surface-alt px-3 py-1.5 rounded-full text-primary font-semibold text-xs uppercase tracking-wider mb-6">
+              <Clock3 class="w-4 h-4" />
+              Business History
+            </div>
+            <h2 class="text-3xl font-bold text-heading mb-6">Built from 2018 with steady, practical growth.</h2>
+            <div class="space-y-6 text-lg text-body leading-relaxed max-w-2xl">
+              <p>
+                The company started with local marketing and business cards in San Francisco, then grew by building a clearer presence on Yelp.
+              </p>
+              <p>
+                That approach helped the business move from one-time jobs to recurring clients, and it is still how the company thinks about growth today.
               </p>
             </div>
-          ))}
+          </div>
+
+          <div class="rounded-2xl bg-surface border border-surface-alt p-6" data-animate>
+            <p class="text-[11px] uppercase tracking-widest text-muted mb-2">What the business emphasizes</p>
+            <p class="text-[15px] text-body leading-relaxed">
+              Eco-friendly products, careful surface cleaning, and finishing details like towel origami in bedrooms and bathrooms.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Certifications -->
-    <section class="py-16 border-t border-surface-alt">
+    <section class="py-20 bg-surface-alt">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-           {badges.map(badge => (
-             <span class="text-lg font-bold text-heading tracking-tighter uppercase whitespace-nowrap">
-               {badge}
-             </span>
-           ))}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="relative" data-animate>
+            <div class="rounded-3xl bg-surface border border-[#E2E8F0] shadow-xl p-8">
+              <p class="text-[11px] uppercase tracking-widest text-muted mb-4">Business Owner</p>
+              <div class="flex items-center gap-4 mb-4">
+                <img
+                  src="/andreas.jpg"
+                  alt="Andreas"
+                  class="w-14 h-14 rounded-full object-cover border-2 border-surface-alt shadow-sm"
+                />
+                <h2 class="text-3xl font-bold text-heading">Andréa S.</h2>
+              </div>
+              <p class="text-[15px] text-body leading-relaxed mb-5">
+                Andréa started the company because he wanted to provide clients with a comfortable, clean environment and to create work that feels
+                personal rather than transactional.
+              </p>
+              <p class="text-[15px] text-body leading-relaxed">
+                What drives the business is the reaction after a job is finished: seeing the client relax when the space looks and feels better.
+              </p>
+            </div>
+          </div>
+          <div data-animate class="space-y-4">
+            <div class="inline-flex items-center gap-2 bg-surface-alt px-3 py-1.5 rounded-full text-primary font-semibold text-xs uppercase tracking-wider">
+              <Leaf class="w-4 h-4" />
+              Service Notes
+            </div>
+            <p class="text-[15px] text-body leading-relaxed max-w-xl">
+              Eco-friendly products are used as requested, and towel origami is used as a finishing touch in bedrooms and bathrooms.
+            </p>
+            <a
+              href="/contact"
+              class="inline-flex items-center justify-center bg-primary text-white px-6 py-3 rounded-full font-semibold hover:bg-primary-dark transition-all"
+            >
+              Schedule an Appointment
+            </a>
+          </div>
         </div>
       </div>
     </section>
