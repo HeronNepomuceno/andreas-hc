@@ -3,6 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import { ShieldCheck, Leaf, CalendarCheck, Banknote } from '@lucide/astro';
+import { getYelpData } from '../utils/yelp';
+
+const yelp = await getYelpData();
 
 const values = [
   {
@@ -50,11 +53,19 @@ const team = [
     color: 'bg-secondary'
   }
 ];
+
+const badges = [
+  'OSHA Certified',
+  'Google 4.9★',
+  yelp ? `Yelp ${yelp.rating.toFixed(1)}★` : 'Yelp Reviews',
+  'Fully Insured in CA'
+];
 ---
 
 <Layout
   title="About Andreas Cleaning Co. | Trusted House Cleaning in San Francisco"
   description="Learn about our story, our values, and the background-checked team behind San Francisco's most trusted house cleaning service."
+  yelp={yelp}
 >
   <Navbar />
   <main>
@@ -139,7 +150,7 @@ const team = [
     <section class="py-16 border-t border-surface-alt">
       <div class="max-w-7xl mx-auto px-6">
         <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-           {['OSHA Certified', 'Google 4.9★', 'Yelp Top Rated', 'Fully Insured in CA'].map(badge => (
+           {badges.map(badge => (
              <span class="text-lg font-bold text-heading tracking-tighter uppercase whitespace-nowrap">
                {badge}
              </span>

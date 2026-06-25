@@ -9,6 +9,9 @@ import Testimonials from '../components/Testimonials.astro';
 import FAQ from '../components/FAQ.astro';
 import Footer from '../components/Footer.astro';
 import LocationHours from '../components/LocationHours.astro';
+import { getYelpData } from '../utils/yelp';
+
+const yelp = await getYelpData();
 
 const faqItems = [
   { question: "How do I book a cleaning?", answer: "You can request a quote through our contact form or call us directly at (415) 374-1720. We'll confirm availability within 1 hour during business hours." },
@@ -21,11 +24,12 @@ const faqItems = [
 <Layout
   title="House Cleaning Services San Francisco | Andreas Cleaning Co."
   description="Professional, insured house cleaning services in San Francisco. Background-checked cleaners, eco-friendly products. Book online in 60 seconds. First clean 15% off."
+  yelp={yelp}
 >
   <Navbar />
   <main>
-    <Hero />
-    <TrustBar />
+    <Hero yelp={yelp} />
+    <TrustBar yelp={yelp} />
     <Services />
     <HowItWorks />
     <Testimonials />

@@ -1,5 +1,13 @@
 ---
 import { Sparkles } from '@lucide/astro';
+import type { YelpBusinessInfo } from '../utils/yelp';
+
+interface Props {
+  yelp: YelpBusinessInfo | null;
+}
+
+const { yelp } = Astro.props;
+const yelpUrl = yelp?.url || 'https://www.yelp.com/biz/andreas-perfect-cleaning-daly-city';
 ---
 
 <section class="min-h-[calc(100vh-72px)] bg-background flex items-center py-12 md:py-20 overflow-hidden">
@@ -63,7 +71,7 @@ import { Sparkles } from '@lucide/astro';
 
         <!-- ZONA 3: Yelp CTA -->
         <a
-          href="https://www.yelp.com/biz/andreas-perfect-cleaning-daly-city"
+          href={yelpUrl}
           target="_blank"
           rel="noopener noreferrer"
           class="group flex flex-col gap-4 bg-[#FFF5F5] hover:bg-[#FFEAEA] border border-[#FECACA] rounded-2xl p-5 transition-all duration-300 hover:shadow-md hover:border-[#F87171]"
@@ -115,8 +123,14 @@ import { Sparkles } from '@lucide/astro';
                 </svg>
               ))}
             </div>
-            <span class="text-[15px] font-bold text-[#CC0000]">4.9</span>
-            <span class="text-[13px] text-muted">·  reviews</span>
+            {yelp ? (
+              <>
+                <span class="text-[15px] font-bold text-[#CC0000]">{yelp.rating.toFixed(1)}</span>
+                <span class="text-[13px] text-muted">· {yelp.reviewCount.toLocaleString('en-US')} reviews</span>
+              </>
+            ) : (
+              <span class="text-[13px] text-muted">Read our reviews</span>
+            )}
           </div>
 
           <!-- CTA text -->
