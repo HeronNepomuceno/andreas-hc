@@ -1,12 +1,12 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
 import { Phone, Mail, MapPin, Clock, ArrowRight } from '@lucide/astro';
-import { getYelpData } from '../utils/yelp';
-import { getSiteCopy } from '../i18n/content';
+import { getYelpData } from '../../utils/yelp';
+import { getSiteCopy } from '../../i18n/content';
 
-const locale = 'en';
+const locale = 'pt-br';
 const copy = getSiteCopy(locale);
 const yelp = await getYelpData();
 ---
@@ -20,8 +20,6 @@ const yelp = await getYelpData();
   <main class="py-12 md:py-20 bg-background">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-        
-        <!-- Left column (Contact Info) -->
         <div class="lg:col-span-1" data-animate>
           <h1 class="text-4xl font-bold text-heading mb-6 leading-tight">{copy.contact.heading}</h1>
           <p class="text-lg text-body mb-10 leading-relaxed">
@@ -55,7 +53,7 @@ const yelp = await getYelpData();
               </div>
               <div class="flex flex-col">
                 <span class="text-sm font-bold text-heading uppercase tracking-wider mb-1">{copy.contact.location}</span>
-                <span class="text-lg text-body">Serving all San Francisco neighborhoods</span>
+                <span class="text-lg text-body">Atendemos todos os bairros de San Francisco</span>
               </div>
             </div>
 
@@ -65,7 +63,7 @@ const yelp = await getYelpData();
               </div>
               <div class="flex flex-col">
                 <span class="text-sm font-bold text-heading uppercase tracking-wider mb-1">{copy.contact.hours}</span>
-                <span class="text-lg text-body">Mon–Sat: 7:00 AM – 7:00 PM</span>
+                <span class="text-lg text-body">Seg–Sáb: 7:00 – 19:00</span>
               </div>
             </div>
           </div>
@@ -77,7 +75,6 @@ const yelp = await getYelpData();
           </div>
         </div>
 
-        <!-- Right column (Quote Form) -->
         <div class="lg:col-span-2" data-animate>
           <div class="bg-surface p-8 md:p-12 rounded-[32px] border border-[#E2E8F0] shadow-xl">
             <form action="#" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -189,17 +186,8 @@ const yelp = await getYelpData();
             </form>
           </div>
         </div>
-
       </div>
     </div>
   </main>
   <Footer locale={locale} copy={copy.footer} />
 </Layout>
-
-<style>
-  /* Basic HTML5 Validation Styles */
-  input:invalid:not(:placeholder-shown),
-  select:invalid:not(:placeholder-shown) {
-    border-color: var(--error);
-  }
-</style>

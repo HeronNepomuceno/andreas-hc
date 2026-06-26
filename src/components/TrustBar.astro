@@ -1,18 +1,20 @@
 ---
 import { Users, Star, ShieldCheck } from '@lucide/astro';
 import type { YelpBusinessInfo } from '../utils/yelp';
+import type { SiteCopy } from '../i18n/content';
 
 interface Props {
+  copy: SiteCopy['trustBar'];
   yelp: YelpBusinessInfo | null;
 }
 
-const { yelp } = Astro.props;
+const { copy, yelp } = Astro.props;
 
 const stats = [
-  { icon: Users, number: '500+', label: 'Happy Clients' },
-  { icon: Star, number: yelp ? `${yelp.rating.toFixed(1)}/5` : 'Yelp', label: 'Yelp Rating' },
-  { icon: Star, number: '5.0', label: 'Google Rating' },
-  { icon: ShieldCheck, number: '100%', label: 'Satisfaction Guaranteed' }
+  { icon: Users, number: '500+', label: copy.happyClients },
+  { icon: Star, number: yelp ? `${yelp.rating.toFixed(1)}/5` : 'Yelp', label: copy.yelpRating },
+  { icon: Star, number: '5.0', label: copy.googleRating },
+  { icon: ShieldCheck, number: '100%', label: copy.satisfaction }
 ];
 ---
 

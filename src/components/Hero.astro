@@ -1,13 +1,18 @@
 ---
 import { Sparkles } from '@lucide/astro';
 import type { YelpBusinessInfo } from '../utils/yelp';
+import { getLocalizedPath, type Locale } from '../i18n/routing';
+import type { SiteCopy } from '../i18n/content';
 
 interface Props {
+  locale: Locale;
+  copy: SiteCopy['hero'];
   yelp: YelpBusinessInfo | null;
 }
 
-const { yelp } = Astro.props;
+const { locale, copy, yelp } = Astro.props;
 const yelpUrl = yelp?.url || 'https://www.yelp.com/biz/andreas-perfect-cleaning-daly-city';
+const reviewsCount = yelp ? copy.reviewsCountLabel(yelp.reviewCount, locale) : copy.reviewsFallback;
 ---
 
 <section class="min-h-[calc(100vh-72px)] bg-background flex items-center py-12 md:py-20 overflow-hidden">
@@ -17,27 +22,27 @@ const yelpUrl = yelp?.url || 'https://www.yelp.com/biz/andreas-perfect-cleaning-
     <div data-animate>
       <div class="inline-flex items-center gap-2 bg-surface-alt px-3 py-1.5 rounded-full text-primary font-semibold text-xs uppercase tracking-wider mb-6">
         <Sparkles class="w-4 h-4" />
-        Top Rated in Daly City
+        {copy.badge}
       </div>
       <h1 class="text-4xl md:text-5xl lg:text-[48px] font-bold text-heading leading-[1.15] mb-6">
-        San Francisco's Most Trusted House Cleaning Service
+        {copy.title}
       </h1>
       <p class="text-lg md:text-xl text-body max-w-xl mb-10 leading-relaxed">
-        Fully insured, background-checked cleaners. Book in 60 seconds. Serving Mission, Pacific Heights, Noe Valley, and beyond.
+        {copy.description}
       </p>
       
       <div class="flex flex-col sm:flex-row gap-4 mb-10">
         <a 
-          href="/contact" 
+          href={getLocalizedPath(locale, 'contact')} 
           class="bg-primary text-white px-8 py-4 rounded-full font-semibold text-center hover:bg-primary-dark transition-all hover:scale-105 shadow-lg shadow-primary/20"
         >
-          Book Now
+          {copy.primaryCta}
         </a>
         <a 
           href="#services" 
           class="border-2 border-primary text-primary px-8 py-4 rounded-full font-semibold text-center hover:bg-primary hover:text-white transition-all"
         >
-          See Our Services
+          {copy.secondaryCta}
         </a>
       </div>
     </div>
@@ -53,11 +58,11 @@ const yelpUrl = yelp?.url || 'https://www.yelp.com/biz/andreas-perfect-cleaning-
         <!-- ZONA 1: hdr com badge de status -->
         <div class="flex items-center justify-between mb-8">
           <span class="text-[11px] font-bold text-muted uppercase tracking-widest">
-            San Francisco, CA
+            {copy.location}
           </span>
           <div class="flex items-center gap-1.5 bg-success/10 px-3 py-1 rounded-full">
             <span class="w-1.5 h-1.5 bg-success rounded-full animate-pulse"></span>
-            <span class="text-success text-[11px] font-bold uppercase tracking-wide">Active</span>
+            <span class="text-success text-[11px] font-bold uppercase tracking-wide">{copy.status}</span>
           </div>
         </div>
 
@@ -65,7 +70,7 @@ const yelpUrl = yelp?.url || 'https://www.yelp.com/biz/andreas-perfect-cleaning-
         <div class="flex flex-col items-center justify-center py-8 mb-8 border-y border-surface-alt">
           <img src="/main-logo.png" alt="Andrea's Perfect Cleaning" class="w-full max-w-[320px] h-auto object-contain " />
           <p class="text-muted text-[13px] text-center mt-4 font-medium leading-snug">
-            Professional House Cleaning
+            {copy.subtitle}
           </p>
         </div>
 
@@ -75,11 +80,11 @@ const yelpUrl = yelp?.url || 'https://www.yelp.com/biz/andreas-perfect-cleaning-
           target="_blank"
           rel="noopener noreferrer"
           class="group flex flex-col gap-4 bg-surface-alt/70 hover:bg-surface border border-surface-alt rounded-2xl p-5 transition-all duration-300 hover:shadow-md hover:border-primary/20"
-          aria-label="Read our reviews on Yelp"
+          aria-label={copy.ariaLabel}
         >
           <!-- Yelp logo + "Read our reviews" -->
           <div class="flex items-center justify-between">
-            <span class="text-[17px] font-semibold tracking-tight text-heading">Yelp</span>
+            <span class="text-[17px] font-semibold tracking-tight text-heading">{copy.yelpLabel}</span>
 
             <!-- Arrow indicator -->
             <span class="w-8 h-8 rounded-full bg-surface border border-surface-alt flex items-center justify-center text-primary group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-all duration-300 shrink-0">
@@ -109,16 +114,16 @@ const yelpUrl = yelp?.url || 'https://www.yelp.com/biz/andreas-perfect-cleaning-
             {yelp ? (
               <>
                 <span class="text-[15px] font-bold text-heading">{yelp.rating.toFixed(1)}</span>
-                <span class="text-[13px] text-muted">· {yelp.reviewCount.toLocaleString('en-US')} reviews</span>
+                <span class="text-[13px] text-muted">· {reviewsCount}</span>
               </>
             ) : (
-              <span class="text-[13px] text-muted">Read our reviews</span>
+              <span class="text-[13px] text-muted">{copy.reviewsFallback}</span>
             )}
           </div>
 
           <!-- CTA text -->
           <p class="text-[13px] text-body font-semibold leading-snug group-hover:text-primary transition-colors">
-            See what our customers are saying →
+            {copy.reviewsCta} →
           </p>
         </a>
       </div>

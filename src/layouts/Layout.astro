@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { getLocalizedPath, getLocaleLanguageTag, locales } from '../i18n/routing';
 import type { YelpBusinessInfo } from '../utils/yelp';
 
 interface Props {
@@ -15,6 +16,15 @@ const {
   canonical = Astro.url.href,
   yelp = null
 } = Astro.props;
+
+const currentLocale = Astro.currentLocale ?? 'en';
+const localeTag = getLocaleLanguageTag(currentLocale === 'pt-br' ? 'pt-br' : 'en');
+const pathWithoutLocale = Astro.url.pathname.replace(/^\/pt-br(?=\/|$)/, '').replace(/^\/+/, '').replace(/\/+$/, '');
+const canonicalPath = pathWithoutLocale ? pathWithoutLocale : '';
+const alternateUrls = locales.map((locale) => ({
+  locale,
+  href: getLocalizedPath(locale, canonicalPath),
+}));
 
 const schema: Record<string, unknown> = {
   "@context": "https://schema.org",
@@ -57,7 +67,7 @@ if (yelp) {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={localeTag}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -81,6 +91,11 @@ if (yelp) {
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content="/og-image.jpg" />
+
+    {alternateUrls.map(({ locale, href }) => (
+      <link rel="alternate" hreflang={locale === 'pt-br' ? 'pt-BR' : 'en-US'} href={href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={getLocalizedPath('en', canonicalPath)} />
 
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

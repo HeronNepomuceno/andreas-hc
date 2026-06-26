@@ -1,28 +1,26 @@
 ---
-const steps = [
-  {
-    number: '01',
-    title: 'Request a Quote',
-    description: 'Fill out our quick online form with your home size and preferred date. Takes under 2 minutes.'
-  },
-  {
-    number: '02',
-    title: "We'll Confirm",
-    description: 'Our team reviews your request and confirms availability within 1 hour during business hours.'
-  },
-  {
-    number: '03',
-    title: 'We Clean, You Relax',
-    description: 'Your background-checked cleaner arrives on time and leaves your home spotless.'
-  }
-];
+import { getLocalizedPath, type Locale } from '../i18n/routing';
+import type { SiteCopy } from '../i18n/content';
+
+interface Props {
+  locale: Locale;
+  copy: SiteCopy['howItWorks'];
+}
+
+const { locale, copy } = Astro.props;
+
+const steps = copy.steps.map((step, index) => ({
+  number: String(index + 1).padStart(2, '0'),
+  title: step.title,
+  description: step.description,
+}));
 ---
 
 <section class="py-20 bg-surface-alt overflow-hidden">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center max-w-2xl mx-auto mb-16" data-animate>
-      <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">Booking Is Simple</h2>
-      <p class="text-lg text-muted">Get your home professionally cleaned in 3 easy steps.</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">{copy.heading}</h2>
+      <p class="text-lg text-muted">{copy.description}</p>
     </div>
 
     <div class="relative">
@@ -46,10 +44,10 @@ const steps = [
 
     <div class="mt-16 text-center" data-animate>
       <a 
-        href="/contact" 
+        href={getLocalizedPath(locale, 'contact')} 
         class="inline-block bg-heading text-white px-8 py-4 rounded-full font-semibold hover:bg-heading/90 transition-all active:scale-95"
       >
-        Start My Quote Request
+        {copy.cta}
       </a>
     </div>
   </div>

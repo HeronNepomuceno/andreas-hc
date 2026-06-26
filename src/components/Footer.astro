@@ -1,5 +1,20 @@
 ---
 import { Sparkles, Camera, Users, MapPin, Phone, Mail, Clock } from '@lucide/astro';
+import { getLocalizedPath, type Locale } from '../i18n/routing';
+import type { SiteCopy } from '../i18n/content';
+
+interface Props {
+  locale: Locale;
+  copy: SiteCopy['footer'];
+}
+
+const { locale, copy } = Astro.props;
+
+const localizedFaq = `${getLocalizedPath(locale)}#faq`;
+const companyLinks = copy.company.map((item) => ({
+  label: item.label,
+  href: item.href === '#faq' ? localizedFaq : getLocalizedPath(locale, item.href),
+}));
 ---
 
 <footer class="bg-heading text-[#94A3B8] pt-16 pb-8">
@@ -12,13 +27,13 @@ import { Sparkles, Camera, Users, MapPin, Phone, Mail, Clock } from '@lucide/ast
           <span class="text-xl font-semibold">Andreas Cleaning Co.</span>
         </div>
         <p class="text-sm leading-relaxed">
-          Professional house cleaning services in San Francisco, CA. Reliable, insured, and background-checked team.
+          {copy.description}
         </p>
         <div class="flex items-center gap-4">
-          <a href="#" class="text-white hover:text-primary transition-colors" aria-label="Instagram">
+          <a href="#" class="text-white hover:text-primary transition-colors" aria-label={copy.social.instagram}>
             <Camera class="w-5 h-5" />
           </a>
-          <a href="#" class="text-white hover:text-primary transition-colors" aria-label="Facebook">
+          <a href="#" class="text-white hover:text-primary transition-colors" aria-label={copy.social.facebook}>
             <Users class="w-5 h-5" />
           </a>
         </div>
@@ -26,46 +41,43 @@ import { Sparkles, Camera, Users, MapPin, Phone, Mail, Clock } from '@lucide/ast
 
       <!-- Col 2 — Services -->
       <div>
-        <h3 class="text-white text-sm font-semibold tracking-widest uppercase mb-6">Services</h3>
+        <h3 class="text-white text-sm font-semibold tracking-widest uppercase mb-6">{copy.servicesTitle}</h3>
         <ul class="space-y-4 text-sm">
-          <li><a href="#services" class="hover:text-white transition-colors">Deep Cleaning</a></li>
-          <li><a href="#services" class="hover:text-white transition-colors">Move In/Out</a></li>
-          <li><a href="#services" class="hover:text-white transition-colors">Regular home cleaning</a></li>
-          <li><a href="#services" class="hover:text-white transition-colors">Commercial deep cleaning</a></li>
-          <li><a href="#services" class="hover:text-white transition-colors">Move-in or move-out cleaning</a></li>
+          {copy.services.map((item) => (
+            <li><a href="#services" class="hover:text-white transition-colors">{item}</a></li>
+          ))}
         </ul>
       </div>
 
       <!-- Col 3 — Company -->
       <div>
-        <h3 class="text-white text-sm font-semibold tracking-widest uppercase mb-6">Company</h3>
+        <h3 class="text-white text-sm font-semibold tracking-widest uppercase mb-6">{copy.companyTitle}</h3>
         <ul class="space-y-4 text-sm">
-          <li><a href="/about" class="hover:text-white transition-colors">About Us</a></li>
-          <li><a href="/faq" class="hover:text-white transition-colors">FAQ</a></li>
-          <li><a href="/contact" class="hover:text-white transition-colors">Contact</a></li>
-          <li><a href="/contact" class="hover:text-white transition-colors">Get a Free Quote</a></li>
+          {companyLinks.map((link) => (
+            <li><a href={link.href} class="hover:text-white transition-colors">{link.label}</a></li>
+          ))}
         </ul>
       </div>
 
       <!-- Col 4 — Contact -->
       <div>
-        <h3 class="text-white text-sm font-semibold tracking-widest uppercase mb-6">Contact</h3>
+        <h3 class="text-white text-sm font-semibold tracking-widest uppercase mb-6">{copy.contactTitle}</h3>
         <ul class="space-y-4 text-sm">
           <li class="flex items-start gap-3">
             <MapPin class="w-5 h-5 shrink-0" />
-            <span>San Francisco, CA 94015</span>
+            <span>{copy.contact.address}</span>
           </li>
           <li class="flex items-center gap-3">
             <Phone class="w-5 h-5 shrink-0" />
-            <span>(415) 374-1720</span>
+            <span>{copy.contact.phone}</span>
           </li>
           <li class="flex items-center gap-3">
             <Mail class="w-5 h-5 shrink-0" />
-            <span>andreasperfectcleaning@gmail.com</span>
+            <span>{copy.contact.email}</span>
           </li>
           <li class="flex items-start gap-3">
             <Clock class="w-5 h-5 shrink-0" />
-            <span>Mon–Sat: 9:00 AM – 8:00 PM</span>
+            <span>{copy.contact.hours}</span>
           </li>
         </ul>
       </div>
@@ -73,8 +85,8 @@ import { Sparkles, Camera, Users, MapPin, Phone, Mail, Clock } from '@lucide/ast
 
     <!-- Bottom bar -->
     <div class="mt-12 pt-8 border-t border-[#1E293B] flex flex-col md:flex-row justify-between items-center gap-4 text-[13px] text-[#64748B]">
-      <p>© 2025 Andreas Cleaning Co. All rights reserved.</p>
-      <p>Licensed, Bonded & Insured in California</p>
+      <p>© 2025 Andreas Cleaning Co. {copy.rights}</p>
+      <p>{copy.license}</p>
     </div>
   </div>
 </footer>

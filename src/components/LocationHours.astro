@@ -1,5 +1,7 @@
 ---
 import { MapPin, Phone, Clock, ExternalLink } from '@lucide/astro';
+import { getLocalizedPath, type Locale } from '../i18n/routing';
+import type { SiteCopy } from '../i18n/content';
 
 interface HoursEntry {
   day: string;
@@ -8,15 +10,19 @@ interface HoursEntry {
   close: string | null;
 }
 
-const hours: HoursEntry[] = [
-  { day: 'Monday',    short: 'Mon', open: '9:00 AM', close: '8:00 PM' },
-  { day: 'Tuesday',   short: 'Tue', open: '9:00 AM', close: '8:00 PM' },
-  { day: 'Wednesday', short: 'Wed', open: '9:00 AM', close: '8:00 PM' },
-  { day: 'Thursday',  short: 'Thu', open: '9:00 AM', close: '8:00 PM' },
-  { day: 'Friday',    short: 'Fri', open: '9:00 AM', close: '8:00 PM' },
-  { day: 'Saturday',  short: 'Sat', open: '9:00 AM', close: '8:00 PM' },
-  { day: 'Sunday',    short: 'Sun', open: null,       close: null       },
-];
+interface Props {
+  locale: Locale;
+  copy: SiteCopy['locationHours'];
+}
+
+const { locale, copy } = Astro.props;
+
+const hours: HoursEntry[] = copy.dayNames.map((day, index) => ({
+  day,
+  short: copy.dayShortNames[index],
+  open: copy.rows[index].open,
+  close: copy.rows[index].close,
+}));
 
 const mapsUrl = 'https://maps.google.com/?q=455+Eastmoor+Ave,+Daly+City,+CA+94015';
 ---
@@ -26,10 +32,8 @@ const mapsUrl = 'https://maps.google.com/?q=455+Eastmoor+Ave,+Daly+City,+CA+9401
 
     <!-- Section header -->
     <div class="text-center max-w-2xl mx-auto mb-14" data-animate>
-      <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">Location & Hours</h2>
-      <p class="text-lg text-muted">
-        Based in Daly City, serving the greater San Francisco Bay Area.
-      </p>
+      <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">{copy.heading}</h2>
+      <p class="text-lg text-muted">{copy.description}</p>
     </div>
 
     <!-- Card grid -->
@@ -74,7 +78,7 @@ const mapsUrl = 'https://maps.google.com/?q=455+Eastmoor+Ave,+Daly+City,+CA+9401
         <!-- Status bar -->
         <div class="px-8 pt-8 pb-6 border-b border-[#F1F5F9]">
           <div class="flex items-center justify-between mb-5">
-            <h3 class="text-[15px] font-bold text-heading uppercase tracking-widest">Hours</h3>
+            <h3 class="text-[15px] font-bold text-heading uppercase tracking-widest">{copy.hours}</h3>
             <div id="status-badge" class="flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wide">
               <!-- filled by JS -->
             </div>
@@ -95,7 +99,7 @@ const mapsUrl = 'https://maps.google.com/?q=455+Eastmoor+Ave,+Daly+City,+CA+9401
               <div class="w-8 h-8 bg-primary/5 rounded-lg flex items-center justify-center">
                 <Clock class="w-4 h-4 text-primary" />
               </div>
-              <span>Serving Daly City &amp; SF Bay Area</span>
+              <span>{copy.serving}</span>
             </div>
           </div>
         </div>
@@ -118,7 +122,7 @@ const mapsUrl = 'https://maps.google.com/?q=455+Eastmoor+Ave,+Daly+City,+CA+9401
                     {entry.open} – {entry.close}
                   </span>
                 ) : (
-                  <span class="text-[13px] font-semibold text-error uppercase tracking-wide">Closed</span>
+                  <span class="text-[13px] font-semibold text-error uppercase tracking-wide">{copy.closed}</span>
                 )}
               </li>
             ))}
@@ -128,10 +132,10 @@ const mapsUrl = 'https://maps.google.com/?q=455+Eastmoor+Ave,+Daly+City,+CA+9401
         <!-- CTA -->
         <div class="px-8 pb-8">
           <a
-            href="/contact"
+            href={getLocalizedPath(locale, 'contact')}
             class="block w-full bg-primary text-white text-center py-3.5 rounded-2xl font-semibold text-[15px] hover:bg-primary-dark transition-all active:scale-[0.98] shadow-lg shadow-primary/20"
           >
-            Book a Cleaning
+            {copy.book}
           </a>
         </div>
       </div>
@@ -140,14 +144,20 @@ const mapsUrl = 'https://maps.google.com/?q=455+Eastmoor+Ave,+Daly+City,+CA+9401
   </div>
 </section>
 
-<script>
+<script define:vars={{
+  statusDayNames: copy.dayNames,
+  openNowLabel: copy.openNow,
+  closedLabel: copy.closed,
+  opensAtLabel: copy.opensAt,
+  opensNextPrefix: copy.opensNextPrefix,
+}}>
   function initLocationHours() {
     const now = new Date();
     // 0 = Sunday … 6 = Saturday
     const dayIndex = now.getDay();
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
-    const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const dayNames = statusDayNames;
     const todayName = dayNames[dayIndex];
 
     // Business hours in minutes from midnight
@@ -173,17 +183,18 @@ const mapsUrl = 'https://maps.google.com/?q=455+Eastmoor+Ave,+Daly+City,+CA+9401
       if (isOpenNow) {
         badge.innerHTML = `
           <span class="w-1.5 h-1.5 bg-success rounded-full animate-pulse"></span>
-          <span class="text-success">Open now</span>`;
+          <span class="text-success">${openNowLabel}</span>`;
         badge.classList.add('bg-success/10');
       } else {
         // Calculate next opening
-        let msg = 'Closed';
+        let msg = closedLabel;
         if (!isClosed && currentMinutes < OPEN_MIN) {
-          msg = 'Opens at 9 AM';
+          msg = opensAtLabel;
         } else {
           // next weekday
-          const next = dayIndex === 6 ? 'Monday' : dayNames[(dayIndex + 1) % 7 === 0 ? 1 : (dayIndex + 1) % 7];
-          msg = `Opens ${next}`;
+          const nextIndex = dayIndex === 6 || dayIndex === 0 ? 1 : dayIndex + 1;
+          const next = dayNames[nextIndex];
+          msg = `${opensNextPrefix} ${next}`;
         }
         badge.innerHTML = `
           <span class="w-1.5 h-1.5 bg-error rounded-full"></span>

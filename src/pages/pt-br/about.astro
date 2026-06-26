@@ -1,13 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
 import { Leaf, Phone, Clock3, Star } from '@lucide/astro';
-import { getYelpData } from '../utils/yelp';
-import { getLocalizedPath } from '../i18n/routing';
-import { getSiteCopy } from '../i18n/content';
+import { getYelpData } from '../../utils/yelp';
+import { getLocalizedPath } from '../../i18n/routing';
+import { getSiteCopy } from '../../i18n/content';
 
-const locale = 'en';
+const locale = 'pt-br';
 const copy = getSiteCopy(locale);
 const yelp = await getYelpData();
 ---
@@ -48,7 +48,7 @@ const yelp = await getYelpData();
             <div class="aspect-[4/3] bg-surface rounded-3xl border border-surface-alt shadow-2xl p-8 overflow-hidden">
               <div class="flex items-start justify-between mb-8">
                 <div>
-                  <p class="text-[11px] font-bold text-muted uppercase tracking-widest mb-1">About the business</p>
+                  <p class="text-[11px] font-bold text-muted uppercase tracking-widest mb-1">Sobre a empresa</p>
                   <h2 class="text-2xl font-bold text-heading">{copy.about.detailsTitle}</h2>
                 </div>
                 <div class="flex items-center gap-1.5 bg-success/10 px-3 py-1 rounded-full">
@@ -60,12 +60,12 @@ const yelp = await getYelpData();
               <div class="grid grid-cols-2 gap-4 mb-6">
                 <div class="rounded-2xl bg-surface-alt p-4">
                   <Phone class="w-5 h-5 text-primary mb-3" />
-                  <p class="text-[11px] uppercase tracking-wider text-muted mb-1">Phone</p>
+                  <p class="text-[11px] uppercase tracking-wider text-muted mb-1">Telefone</p>
                   <p class="text-[15px] font-semibold text-heading">(415) 374-1720</p>
                 </div>
                 <div class="rounded-2xl bg-surface-alt p-4">
                   <Clock3 class="w-5 h-5 text-primary mb-3" />
-                  <p class="text-[11px] uppercase tracking-wider text-muted mb-1">Since</p>
+                  <p class="text-[11px] uppercase tracking-wider text-muted mb-1">Desde</p>
                   <p class="text-[15px] font-semibold text-heading">2018</p>
                 </div>
               </div>
@@ -106,7 +106,7 @@ const yelp = await getYelpData();
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div class="relative" data-animate>
-          <div class="rounded-3xl bg-surface border border-[#E2E8F0] shadow-xl p-8">
+            <div class="rounded-3xl bg-surface border border-[#E2E8F0] shadow-xl p-8">
               <p class="text-[11px] uppercase tracking-widest text-muted mb-4">{copy.about.ownerBadge}</p>
               <div class="flex items-center gap-4 mb-4">
                 <img

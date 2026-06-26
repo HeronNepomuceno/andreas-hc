@@ -1,19 +1,39 @@
 ---
 import { Menu, X } from '@lucide/astro';
+import { getLocalizedPath, getOppositeLocale, type Locale } from '../i18n/routing';
+import type { SiteCopy } from '../i18n/content';
+
+interface Props {
+  locale: Locale;
+  pagePath: string;
+  copy: SiteCopy['nav'];
+}
+
+const { locale, pagePath, copy } = Astro.props;
 
 const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
+  { name: copy.home, path: '' },
+  { name: copy.about, path: 'about' },
+  { name: copy.contact, path: 'contact' },
 ];
 
-const currentPath = Astro.url.pathname;
+const currentLocale = locale ?? 'en';
+const otherLocale = getOppositeLocale(currentLocale);
+const otherLanguageLabel = currentLocale === 'en' ? 'PT-BR' : 'EN';
+
+function localized(path = '') {
+  return getLocalizedPath(currentLocale, path);
+}
+
+function isActive(path: string) {
+  return pagePath === path;
+}
 ---
 
 <header class="sticky top-0 z-50 bg-surface shadow-sm">
   <nav class="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="flex items-center group">
+    <a href={localized()} class="flex items-center group">
       <img 
         src="/main-logo.png" 
         alt="Andreas Cleaning Co. Logo" 
@@ -25,8 +45,8 @@ const currentPath = Astro.url.pathname;
     <div class="hidden md:flex items-center gap-8">
       {navLinks.map(link => (
         <a 
-          href={link.href} 
-          class={`text-[15px] font-medium transition-colors hover:text-primary ${currentPath === link.href ? 'text-primary underline decoration-2 underline-offset-8' : 'text-body'}`}
+          href={localized(link.path)} 
+          class={`text-[15px] font-medium transition-colors hover:text-primary ${isActive(link.path) ? 'text-primary underline decoration-2 underline-offset-8' : 'text-body'}`}
         >
           {link.name}
         </a>
@@ -34,12 +54,18 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <!-- Desktop CTA -->
-    <div class="hidden md:block">
+    <div class="hidden md:flex items-center gap-3">
+      <a
+        href={getLocalizedPath(otherLocale, pagePath)}
+        class="rounded-full border border-surface-alt px-4 py-2 text-[13px] font-semibold uppercase tracking-wider text-body hover:border-primary hover:text-primary transition-colors"
+      >
+        {otherLanguageLabel}
+      </a>
       <a 
-        href="/contact" 
+        href={localized('contact')} 
         class="bg-primary text-white px-5 py-2.5 rounded-full font-medium text-[15px] hover:bg-primary-dark transition-all active:scale-95"
       >
-        Get a Free Quote
+        {copy.cta}
       </a>
     </div>
 
@@ -55,17 +81,23 @@ const currentPath = Astro.url.pathname;
     <div class="px-6 py-8 flex flex-col gap-6">
       {navLinks.map(link => (
         <a 
-          href={link.href} 
-          class={`text-lg font-medium ${currentPath === link.href ? 'text-primary' : 'text-body'}`}
+          href={localized(link.path)} 
+          class={`text-lg font-medium ${isActive(link.path) ? 'text-primary' : 'text-body'}`}
         >
           {link.name}
         </a>
       ))}
+      <a
+        href={getLocalizedPath(otherLocale, pagePath)}
+        class="inline-flex items-center justify-center rounded-full border border-surface-alt px-4 py-2 text-sm font-semibold uppercase tracking-wider text-body"
+      >
+        {otherLanguageLabel}
+      </a>
       <a 
-        href="/contact" 
+        href={localized('contact')} 
         class="bg-primary text-white px-6 py-3 rounded-full font-medium text-center hover:bg-primary-dark transition-colors mt-2"
       >
-        Get a Free Quote
+        {copy.cta}
       </a>
     </div>
   </div>

@@ -1,15 +1,19 @@
 import type { APIRoute } from 'astro';
+import { getLocalizedPath, locales } from '../i18n/routing';
 
 export const GET: APIRoute = () => {
-  const pages = ['', 'services', 'about', 'contact', 'faq'];
+  const pages = ['', 'about', 'contact'];
   const baseUrl = 'https://www.andreascleaning.com';
+  const urls = locales.flatMap((locale) =>
+    pages.map((page) => getLocalizedPath(locale, page)),
+  );
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${pages.map(page => `  <url>
-    <loc>${baseUrl}/${page}${page ? '' : ''}</loc>
+${urls.map((path) => `  <url>
+    <loc>${baseUrl}${path}</loc>
     <changefreq>monthly</changefreq>
-    <priority>${page === '' ? '1.0' : '0.8'}</priority>
+    <priority>${path === '/' || path === '/pt-br' ? '1.0' : '0.8'}</priority>
   </url>`).join('\n')}
 </urlset>`;
 

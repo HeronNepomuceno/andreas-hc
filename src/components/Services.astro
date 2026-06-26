@@ -1,31 +1,45 @@
 ---
 import { Sparkles, Layers, PackageOpen, Building2, HardHat, BedDouble, ArrowRight } from '@lucide/astro';
+import { getLocalizedPath, type Locale } from '../i18n/routing';
+import type { SiteCopy } from '../i18n/content';
+
+interface Props {
+  locale: Locale;
+  copy: SiteCopy['services'];
+}
+
+const { locale, copy } = Astro.props;
 
 const services = [
   {
     icon: Layers,
-    title: 'Deep Cleaning',
-    description: 'A thorough top-to-bottom clean, perfect for seasonal resets or first-time bookings. We cover every corner.'
+    title: copy.services[0].title,
+    description: copy.services[0].description
   },
   {
     icon: PackageOpen,
-    title: 'Move In / Move Out',
-    description: 'Leave your old place spotless or arrive to a perfectly clean new home. Stress-free transition guaranteed.'
+    title: copy.services[1].title,
+    description: copy.services[1].description
   },
   {
     icon: Sparkles,
-    title: 'Regular home cleaning',
-    description: 'Regular scheduled cleanings to keep your home consistently fresh and tidy. Perfect for busy families.'
+    title: copy.services[2].title,
+    description: copy.services[2].description
   },
   {
     icon: Building2,
-    title: 'Commercial deep cleaning',
-    description: 'Professional workspace cleaning that keeps your team productive and your clients impressed.'
+    title: copy.services[3].title,
+    description: copy.services[3].description
   },
   {
     icon: BedDouble,
-    title: 'Move-in or move-out cleaning',
-    description: 'Comprehensive cleaning for commercial spaces during transitions. We ensure a pristine environment for your next chapter.'
+    title: copy.services[4].title,
+    description: copy.services[4].description
+  },
+  {
+    icon: HardHat,
+    title: copy.services[5].title,
+    description: copy.services[5].description
   }
 ];
 ---
@@ -33,8 +47,8 @@ const services = [
 <section id="services" class="py-20 bg-background">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center max-w-2xl mx-auto mb-16" data-animate>
-      <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">What We Clean</h2>
-      <p class="text-lg text-muted">From regular upkeep to specialized deep cleans, we handle it all with precision and care.</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">{copy.heading}</h2>
+      <p class="text-lg text-muted">{copy.description}</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -49,10 +63,10 @@ const services = [
           <h3 class="text-xl font-bold text-heading mb-3">{service.title}</h3>
           <p class="text-[15px] text-body leading-relaxed mb-6">{service.description}</p>
           <a 
-            href="#services" 
+            href={`${getLocalizedPath(locale)}#services`} 
             class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
           >
-            Learn More <ArrowRight class="w-4 h-4" />
+            {copy.learnMore} <ArrowRight class="w-4 h-4" />
           </a>
         </div>
       ))}
