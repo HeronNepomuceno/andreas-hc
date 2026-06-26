@@ -5,10 +5,11 @@ import type { SiteCopy } from '../i18n/content';
 
 interface Props {
   locale: Locale;
+  brandName: string;
   copy: SiteCopy['footer'];
 }
 
-const { locale, copy } = Astro.props;
+const { locale, brandName, copy } = Astro.props;
 
 const localizedFaq = `${getLocalizedPath(locale)}#faq`;
 const companyLinks = copy.company.map((item) => ({
@@ -24,7 +25,7 @@ const companyLinks = copy.company.map((item) => ({
       <div class="space-y-6">
         <div class="flex items-center gap-2 text-white">
           <Sparkles class="w-6 h-6" />
-          <span class="text-xl font-semibold">Andreas Cleaning Co.</span>
+          <span class="text-xl font-semibold">{brandName}</span>
         </div>
         <p class="text-sm leading-relaxed">
           {copy.description}
@@ -85,7 +86,7 @@ const companyLinks = copy.company.map((item) => ({
 
     <!-- Bottom bar -->
     <div class="mt-12 pt-8 border-t border-[#1E293B] flex flex-col md:flex-row justify-between items-center gap-4 text-[13px] text-[#64748B]">
-      <p>© 2025 Andreas Cleaning Co. {copy.rights}</p>
+      <p>© 2025 {brandName} {copy.rights}</p>
       <p>{copy.license}</p>
     </div>
   </div>

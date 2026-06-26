@@ -9,6 +9,7 @@ export type HeroCopy = {
   location: string;
   status: string;
   subtitle: string;
+  logoAlt: string;
   reviewsFallback: string;
   reviewsLinkLabel: string;
   reviewsCta: string;
@@ -168,6 +169,8 @@ export type ContactCopy = {
 };
 
 export type SiteCopy = {
+  brandName: string;
+  logoAlt: string;
   nav: {
     home: string;
     about: string;
@@ -185,10 +188,21 @@ export type SiteCopy = {
   footer: FooterCopy;
   about: AboutCopy;
   contact: ContactCopy;
+  misc: {
+    aboutBusinessLabel: string;
+    phoneLabel: string;
+    sinceLabel: string;
+    mapTitle: string;
+    neighborhoodLine: string;
+    hoursLine: string;
+    logoCaption: string;
+  };
 };
 
 export const siteCopy: Record<Locale, SiteCopy> = {
   en: {
+    brandName: 'Andreas Cleaning Co.',
+    logoAlt: "Andreas Cleaning Co. logo",
     nav: {
       home: 'Home',
       about: 'About',
@@ -205,6 +219,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       location: 'San Francisco, CA',
       status: 'Active',
       subtitle: 'Professional House Cleaning',
+      logoAlt: "Andreas Cleaning Co. logo",
       reviewsFallback: 'Read our reviews',
       reviewsLinkLabel: 'Read our reviews on Yelp',
       reviewsCta: 'See what our customers are saying',
@@ -452,8 +467,19 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         'Late Afternoon (3–7 PM)',
       ],
     },
+    misc: {
+      aboutBusinessLabel: 'About the business',
+      phoneLabel: 'Phone',
+      sinceLabel: 'Since',
+      mapTitle: "Andreas Cleaning Co. location on Google Maps",
+      neighborhoodLine: 'Serving all San Francisco neighborhoods',
+      hoursLine: 'Mon-Sat: 7:00 AM - 7:00 PM',
+      logoCaption: 'Professional House Cleaning',
+    },
   },
   'pt-br': {
+    brandName: 'Andreas Cleaning Co.',
+    logoAlt: 'Logo da Andreas Cleaning Co.',
     nav: {
       home: 'Início',
       about: 'Sobre',
@@ -470,6 +496,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       location: 'San Francisco, CA',
       status: 'Ativa',
       subtitle: 'Limpeza residencial profissional',
+      logoAlt: 'Logo da Andreas Cleaning Co.',
       reviewsFallback: 'Leia nossas avaliações',
       reviewsLinkLabel: 'Leia nossas avaliações no Yelp',
       reviewsCta: 'Veja o que nossos clientes dizem',
@@ -716,6 +743,15 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         'Tarde (11h–15h)',
         'Fim de tarde (15h–19h)',
       ],
+    },
+    misc: {
+      aboutBusinessLabel: 'Sobre a empresa',
+      phoneLabel: 'Telefone',
+      sinceLabel: 'Desde',
+      mapTitle: 'Localização da Andreas Cleaning Co. no Google Maps',
+      neighborhoodLine: 'Atendemos todos os bairros de San Francisco',
+      hoursLine: 'Seg–Sáb: 7:00 – 19:00',
+      logoCaption: 'Limpeza residencial profissional',
     },
   },
 };
